@@ -5,15 +5,15 @@ import sys
 
 # show usage
 if len(sys.argv) < 2:
-    print "Usage: btclassify.py <class> [<class> ...]"
-    print "    Class looks like: 0x112233. 0x optional"
+    print("Usage: btclassify.py <class> [<class> ...]")
+    print("    Class looks like: 0x112233. 0x optional")
     sys.exit(1)
 
 for class_string in sys.argv[1:]:
     # I'm a Perl guy, sue me
     m = re.match('(0x)?([0-9A-Fa-f]{6})', class_string)
     if m is None:
-        print "Invalid class, skipping (%s)" % class_string
+        print(f"Invalid class, skipping {class_string}")
         continue
 
     hex_string = m.group(2)
@@ -105,7 +105,7 @@ for class_string in sys.argv[1:]:
         else:
             minor_low = 'reserved'
         
-        minor = '%s, %s' % (feel, minor_low)
+        minor = f'{feel}, {minor_low}'
 
     # imaging
     elif major_number == 6:
@@ -179,8 +179,8 @@ for class_string in sys.argv[1:]:
 
     output = [major]
     if minor is not None:
-        output.append(' (%s)' % minor)
+        output.append(f' ({minor})')
     output.append(': ')
     output.append(', '.join(services))
 
-    print '0x%s: %s' % (hex_string, ''.join(output))
+    print(f"0x{hex_string}: {''.join(output)}")
